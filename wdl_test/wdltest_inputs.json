@@ -1,0 +1,11 @@
+{
+  "wdltest.idsample": "sample_test",
+  "wdltest.inputbam": "File",
+  "wdltest.fastqr2": "/usr/local/share/refData/examples/MiniFastqTest_R2.fastq.gz",
+  "wdltest.samtoolsexe": "/usr/local/bin/samtools",
+  "wdltest.bwaexe": "/usr/local/bin/bwa",
+  "wdltest.outdir": "/home/nsoirat/wdl_test/outpout/",
+  "wdltest.fastqr1": "/usr/local/share/refData/examples/MiniFastqTest_R1.fastq.gz",
+  "wdltest.fasta": "/usr/local/share/refData/genome/hg19/hg19.fa",
+  "wdltest.gatk": "/usr/local/bin/gatk"
+}
