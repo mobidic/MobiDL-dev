@@ -4,7 +4,7 @@ MobidicWDL-dev workflows
 
 ## Goals
 
-Providing wdl workflows to treat NGS data
+Providing wdl workflows to treat NGS data (dev)
 
 ## Repos architecture and requirements
 
