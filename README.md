@@ -1,6 +1,6 @@
 # MobiDL
 
-MobidicWDL-dev workflows
+MobidicWDL-dev workflow
 
 ## Goals
 
