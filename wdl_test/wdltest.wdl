@@ -1,34 +1,66 @@
 import "modules/bwaSamtools.wdl" as runBwa
-import "modules/gatkHaploTypeCaller.wdl" as runGatk
+import "modules/gatkHaplotypeCaller.wdl" as runGatk
+import "modules/sambambaIndex.wdl" as runSamIndex
 
 workflow wdltest {
 	#Variables 
 	File fasta
-	File fastqr1
-	File fastqr2
-	File gatk
-	File inputbam
-	String outdir
-	String idsample
-	String bwaexe
-	String samtoolsexe
+	File fastqR1
+	File fastqR2
+	String gatkExe
+	#File gatkinterval
+	File refFai
+	File refDict
+	String outDir
+	String idSample
+	String bwaExe
+	String samtoolsExe
+	String threads
+	File refAmb
+	File refAnn
+	File refBwt
+	File refPac
+	File refSa
+	String swMode
+	String sambambaExe
 	
 	call runBwa.bwaSamtools {
 		input:
-		Fasta=fasta,
-		FastqR1=fastqr1,
-		FastqR2=fastqr2,
-		OutDir=outdir,
-		IDSample=idsample,
-		BwaExe=bwaexe,
-		SamtoolsExe=samtoolsexe,
+		Fasta = fasta,
+		FastqR1 = fastqR1,
+		FastqR2 = fastqR2,
+		OutDir = outDir,
+		IdSample = idSample,
+		BwaExe = bwaExe,
+		SamtoolsExe = samtoolsExe,
+		Threads = threads,
+		RefAmb = refAmb,
+		RefAnn = refAnn,
+		RefBwt = refBwt,
+		RefPac = refPac,
+		RefSa = refSa,
+		RefFai = refFai
 	}
-	call runGatk.gatkHaploTypeCaller {
+
+	call runSamIndex.sambambaIndex {
 		input:
-		GATK=gatk,
-		Fasta=fasta,
-		inputBAM=bwaSamtools.outBam,
-		OutDir=outdir,
-		IDSample=idsample,
+		Threads = threads,
+		IdSample = idSample, 
+		OutDir = outDir, 
+		SambambaExe = sambambaExe, 
+		InputBam = bwaSamtools.OutBam
+	}
+
+	call runGatk.gatkHaplotypeCaller {
+		input:
+		GatkExe = gatkExe,
+		Fasta = fasta,
+		RefFai = refFai,
+		RefDict = refDict,
+		InputBam = bwaSamtools.OutBam,
+		BamIndex = sambambaIndex.BamIndex, 
+		OutDir = outDir,
+		IdSample = idSample,
+		SwMode = swMode
 	}	
 }

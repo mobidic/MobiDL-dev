@@ -2,15 +2,25 @@ task bwaSamtools {
 	File Fasta
 	File FastqR1
 	File FastqR2
+	Int Threads
 	String OutDir
-	String IDSample
+	String IdSample
 	String BwaExe
+	File RefFai
 	String SamtoolsExe
+	#Index bwa 
+	File RefAmb
+	File RefAnn
+	File RefBwt
+	File RefPac
+	File RefSa
 	command {
-		${BwaExe} \ ${Fasta} \ ${FastqR1} \ ${FastqR2} | ${SamtoolsExe} \ -o "${OutDir}${IDSample}/${IDSample}.bam"
+		#Thread : nombre d'actions en parallèles donc utilisation de différents coeurs 
+		${BwaExe} mem -M -t ${Threads} \
+		${Fasta} ${FastqR1} ${FastqR2} | ${SamtoolsExe} sort -@ ${Threads} -l 1 -o "${OutDir}${IdSample}/${IdSample}.bam"
 	}
 	output {
-		File outBam = "${OutDir}${IDSample}/${IDSample}.bam"
+		File OutBam = "${OutDir}${IdSample}/${IdSample}.bam"
 	}
 }
 
