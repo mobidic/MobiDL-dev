@@ -1,5 +1,5 @@
 task gatkHaplotypeCaller {
-	String GatkExe
+	File GatkExe
 	File Fasta
 	File RefFai
 	File RefDict

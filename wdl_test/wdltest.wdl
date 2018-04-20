@@ -7,7 +7,7 @@ workflow wdltest {
 	File fasta
 	File fastqR1
 	File fastqR2
-	String gatkExe
+	File gatkExe
 	#File gatkinterval
 	File refFai
 	File refDict

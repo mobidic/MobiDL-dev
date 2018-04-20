@@ -17,6 +17,7 @@ task bwaSamtools {
 	command {
 		#Thread : nombre d'actions en parallèles donc utilisation de différents coeurs 
 		${BwaExe} mem -M -t ${Threads} \
+		-R "@RG\tID:${IdSample}\tSM:${IdSample}" \
 		${Fasta} ${FastqR1} ${FastqR2} | ${SamtoolsExe} sort -@ ${Threads} -l 1 -o "${OutDir}${IdSample}/${IdSample}.bam"
 	}
 	output {

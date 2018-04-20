@@ -1,10 +1,9 @@
 {
   "wdltest.idSample": "sample_test",
-  "wdltest.inputBam": "File",
   "wdltest.fastqR2": "/usr/local/share/refData/examples/MiniFastqTest_R2.fastq.gz",
   "wdltest.samtoolsExe": "/usr/local/bin/samtools",
   "wdltest.bwaExe": "/usr/local/bin/bwa",
-  "wdltest.outDir": "/home/nsoirat/wdl_test/outpout/",
+  "wdltest.outDir": "/home/nsoirat/MobiDL-dev/wdl_test/output/",
   "wdltest.fastqR1": "/usr/local/share/refData/examples/MiniFastqTest_R1.fastq.gz",
   "wdltest.fasta": "/usr/local/share/refData/genome/hg19/hg19.fa",
   "wdltest.refFai": "/usr/local/share/refData/genome/hg19/hg19.fa.fai",
