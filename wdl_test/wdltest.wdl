@@ -1,20 +1,24 @@
 import "modules/bwaSamtools.wdl" as runBwa
 import "modules/gatkHaplotypeCaller.wdl" as runGatk
 import "modules/sambambaIndex.wdl" as runSamIndex
+import "modules/gatkSelectVariants" as selectVariants
 
 workflow wdltest {
-	#Variables 
+	#Exe
+	File gatkExe
+	String samtoolsExe
+	String sambambaExe
+	String bwaExe
+	#Output gestion
+	String outDir
+	String idSample
+	#Fasta
 	File fasta
 	File fastqR1
 	File fastqR2
-	File gatkExe
-	#File gatkinterval
 	File refFai
 	File refDict
-	String outDir
-	String idSample
-	String bwaExe
-	String samtoolsExe
+	#File gatkinterval
 	String threads
 	File refAmb
 	File refAnn
@@ -22,8 +26,10 @@ workflow wdltest {
 	File refPac
 	File refSa
 	String swMode
-	String sambambaExe
-	
+	#Select Variants
+	String selectType
+
+
 	call runBwa.bwaSamtools {
 		input:
 		Fasta = fasta,
@@ -45,9 +51,9 @@ workflow wdltest {
 	call runSamIndex.sambambaIndex {
 		input:
 		Threads = threads,
-		IdSample = idSample, 
-		OutDir = outDir, 
-		SambambaExe = sambambaExe, 
+		IdSample = idSample,
+		OutDir = outDir,
+		SambambaExe = sambambaExe,
 		InputBam = bwaSamtools.OutBam
 	}
 
@@ -58,9 +64,34 @@ workflow wdltest {
 		RefFai = refFai,
 		RefDict = refDict,
 		InputBam = bwaSamtools.OutBam,
-		BamIndex = sambambaIndex.BamIndex, 
+		BamIndex = sambambaIndex.BamIndex,
 		OutDir = outDir,
 		IdSample = idSample,
 		SwMode = swMode
-	}	
+	}
+
+#Split de Select Variant pour les SNP et les INDELS 
+	call selectVariants as selectSnps {
+		input:
+		GatkExe = gatkExe,
+		Fasta = fasta,
+		RefFai = refFai,
+		RefDict = refDict,
+		SelectType = "SNP",
+		OutDir = outDir,
+		IdSample = idSample,
+		OutVcf =  gatkHaplotypeCaller.OutVcf
+	}
+
+	call selectVariants as selectIndels {
+		input:
+		GatkExe = gatkExe,
+		Fasta = fasta,
+		RefFai = refFai,
+		RefDict = refDict,
+		SelectType = "INDEL",
+		OutDir = outDir,
+		IdSample = idSample,
+		OutVcf =  gatkHaplotypeCaller.OutVcf
+	}
 }
