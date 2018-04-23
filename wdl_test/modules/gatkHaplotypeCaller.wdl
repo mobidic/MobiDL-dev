@@ -16,5 +16,5 @@ task gatkHaplotypeCaller {
 	}
 	output {
 		File OutVcf = "${OutDir}${IdSample}/vcfs/${IdSample}.vcf"
-	}  
+	}
 }

@@ -11,12 +11,12 @@ task gatkSelectVariants {
     ${GatkExe} SelectVariants \
     -R ${Fasta} \
     -V ${OutVcf} \
-    -selectType ${SelectType} \
-    -O "${OutDir}${IdSample}/vcfs/{IdSample}.${SelectType}.vcf"
+    --select-type-to-include ${SelectType} \
+    -O "${OutDir}${IdSample}/vcfs/${IdSample}.${SelectType}.vcf"
   }
 
   output {
-    File selectVCF = "${OutDir}${IdSample}/vcfs/{IdSample}.${SelectType}.vcf"
+    File SelectVcf = "${OutDir}${IdSample}/vcfs/${IdSample}.${SelectType}.vcf"
   }
 
 }
