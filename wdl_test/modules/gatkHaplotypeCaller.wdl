@@ -7,14 +7,17 @@ task gatkHaplotypeCaller {
 	File BamIndex
 	String OutDir
 	String IdSample
-	String SwMode
+	#String SwMode
+	File GatkIntervals
+	String IntervalName = basename("${GatkIntervals}", ".interval")
 	command {
 		${GatkExe} HaplotypeCaller \
 		-R ${Fasta} \
 		-I ${InputBam} \
-		-O "${OutDir}${IdSample}/vcfs/${IdSample}.vcf"
+		-L ${GatkIntervals} \
+		-O "${OutDir}${IdSample}/vcfs/${IdSample}.${IntervalName}.vcf"
 	}
 	output {
-		File OutVcf = "${OutDir}${IdSample}/vcfs/${IdSample}.vcf"
+		File HcVcf = "${OutDir}${IdSample}/vcfs/${IdSample}.${IntervalName}.vcf"
 	}
 }

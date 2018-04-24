@@ -16,5 +16,8 @@
   "wdltest.refPac": "/usr/local/share/refData/genome/hg19/hg19.fa.pac",
   "wdltest.refSa": "/usr/local/share/refData/genome/hg19/hg19.fa.sa",
   "wdltest.swMode": "FASTEST_AVAILABLE",
-  "wdltest.sambambaExe": "/usr/local/bin/sambamba"
+  "wdltest.sambambaExe": "/usr/local/bin/sambamba",
+  "wdltest.awkExe": "/usr/bin/awk",
+  "wdltest.intervalBed": "/usr/local/share/refData/examples/Intervals.bed",
+  "wdltest.subdivisionMode": "BALANCING_WITHOUT_INTERVAL_SUBDIVISION"
 }

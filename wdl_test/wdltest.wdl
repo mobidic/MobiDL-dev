@@ -5,6 +5,9 @@ import "modules/gatkSelectVariants.wdl" as selectVariants
 import "modules/gatkFilterSnp.wdl" as runGatkFilterSnp
 import "modules/gatkFilterIndel.wdl" as runGatkFilterIndel
 import "modules/gatkMergeVcf.wdl" as runGatkMergeVcf
+import "modules/bedToGatkIntervalList.wdl" as runBedToGatkIntervalList
+import "modules/gatkSplitIntervals.wdl" as runGatkSplitIntervals
+import "modules/gatkGatherVcf.wdl" as runGatkGatherVcf
 
 workflow wdltest {
 	#Exe
@@ -12,6 +15,7 @@ workflow wdltest {
 	String samtoolsExe
 	String sambambaExe
 	String bwaExe
+	File awkExe
 	#Output gestion
 	String outDir
 	String idSample
@@ -21,7 +25,7 @@ workflow wdltest {
 	File fastqR2
 	File refFai
 	File refDict
-	#File gatkinterval
+	#Gatk HC
 	String threads
 	File refAmb
 	File refAnn
@@ -29,8 +33,10 @@ workflow wdltest {
 	File refPac
 	File refSa
 	String swMode
-	#Select Variants
-	#String SelectType
+	#Bed2IntervalList
+	File intervalBed
+	#Gatk Split Interval
+	String subdivisionMode
 
 
 	call runBwa.bwaSamtools {
@@ -60,17 +66,50 @@ workflow wdltest {
 		InputBam = bwaSamtools.OutBam
 	}
 
-	call runGatk.gatkHaplotypeCaller {
+	call runBedToGatkIntervalList.bedToGatkIntervalList {
+		input:
+		AwkExe = awkExe,
+		IntervalBed = intervalBed,
+		OutDir = outDir,
+		IdSample = idSample
+	}
+
+	call runGatkSplitIntervals.gatkSplitIntervals {
 		input:
 		GatkExe = gatkExe,
 		Fasta = fasta,
 		RefFai = refFai,
 		RefDict = refDict,
-		InputBam = bwaSamtools.OutBam,
-		BamIndex = sambambaIndex.BamIndex,
+		GatkIntervals = bedToGatkIntervalList.GatkIntervals,
 		OutDir = outDir,
 		IdSample = idSample,
-		SwMode = swMode
+		Threads = threads,
+		SubdivisionMode = subdivisionMode
+	}
+	scatter (interval in gatkSplitIntervals.splittedIntervals){
+		call runGatk.gatkHaplotypeCaller {
+			input:
+			GatkExe = gatkExe,
+			Fasta = fasta,
+			RefFai = refFai,
+			RefDict = refDict,
+			InputBam = bwaSamtools.OutBam,
+			BamIndex = sambambaIndex.BamIndex,
+			OutDir = outDir,
+			IdSample = idSample,
+			GatkIntervals = interval
+		}
+	}
+	output {
+		Array[File] hcVcf = gatkHaplotypeCaller.HcVcf
+	}
+
+	call runGatkGatherVcf.gatkGatherVcf {
+		input:
+		GatkExe = gatkExe,
+		OutDir = outDir,
+		IdSample = idSample,
+		HcVcf = hcVcf
 	}
 
 #Split de Select Variant pour les SNP et les INDELS
@@ -83,7 +122,7 @@ workflow wdltest {
 		SelectType = "SNP",
 		OutDir = outDir,
 		IdSample = idSample,
-		OutVcf =  gatkHaplotypeCaller.OutVcf
+		OutVcf =  gatkGatherVcf.GatheredHcVcf
 	}
 
 	call selectVariants.gatkSelectVariants as selectIndels {
@@ -95,7 +134,7 @@ workflow wdltest {
 		SelectType = "INDEL",
 		OutDir = outDir,
 		IdSample = idSample,
-		OutVcf =  gatkHaplotypeCaller.OutVcf
+		OutVcf =  gatkGatherVcf.GatheredHcVcf
 	}
 
 	call runGatkFilterSnp.gatkFilterSnp {
