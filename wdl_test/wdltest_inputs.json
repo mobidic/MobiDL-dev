@@ -19,5 +19,8 @@
   "wdltest.sambambaExe": "/usr/local/bin/sambamba",
   "wdltest.awkExe": "/usr/bin/awk",
   "wdltest.intervalBed": "/usr/local/share/refData/examples/Intervals.bed",
-  "wdltest.subdivisionMode": "BALANCING_WITHOUT_INTERVAL_SUBDIVISION"
+  "wdltest.subdivisionMode": "BALANCING_WITHOUT_INTERVAL_SUBDIVISION",
+  "write_to_cache": true,
+  "read_from_cache": true
+
 }
