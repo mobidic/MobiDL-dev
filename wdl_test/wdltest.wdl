@@ -1,3 +1,4 @@
+import "modules/dirPreparation.wdl" as runDirPreparation
 import "modules/bwaSamtools.wdl" as runBwa
 import "modules/gatkHaplotypeCaller.wdl" as runGatk
 import "modules/sambambaIndex.wdl" as runSamIndex
@@ -8,6 +9,7 @@ import "modules/gatkMergeVcf.wdl" as runGatkMergeVcf
 import "modules/bedToGatkIntervalList.wdl" as runBedToGatkIntervalList
 import "modules/gatkSplitIntervals.wdl" as runGatkSplitIntervals
 import "modules/gatkGatherVcf.wdl" as runGatkGatherVcf
+
 
 workflow wdltest {
 	#Exe
@@ -38,6 +40,11 @@ workflow wdltest {
 	#Gatk Split Interval
 	String subdivisionMode
 
+	call runDirPreparation.dirPreparation {
+		input:
+		OutDir = outDir,
+		IdSample = idSample
+	}
 
 	call runBwa.bwaSamtools {
 		input:
@@ -54,7 +61,8 @@ workflow wdltest {
 		RefBwt = refBwt,
 		RefPac = refPac,
 		RefSa = refSa,
-		RefFai = refFai
+		RefFai = refFai,
+		IsPrepared = dirPreparation.isPrepared
 	}
 
 	call runSamIndex.sambambaIndex {
@@ -71,7 +79,8 @@ workflow wdltest {
 		AwkExe = awkExe,
 		IntervalBed = intervalBed,
 		OutDir = outDir,
-		IdSample = idSample
+		IdSample = idSample,
+		IsPrepared = dirPreparation.isPrepared
 	}
 
 	call runGatkSplitIntervals.gatkSplitIntervals {
@@ -84,7 +93,8 @@ workflow wdltest {
 		OutDir = outDir,
 		IdSample = idSample,
 		Threads = threads,
-		SubdivisionMode = subdivisionMode
+		SubdivisionMode = subdivisionMode,
+		IsPrepared = dirPreparation.isPrepared
 	}
 	scatter (interval in gatkSplitIntervals.splittedIntervals){
 		call runGatk.gatkHaplotypeCaller {
@@ -97,7 +107,8 @@ workflow wdltest {
 			BamIndex = sambambaIndex.BamIndex,
 			OutDir = outDir,
 			IdSample = idSample,
-			GatkIntervals = interval
+			GatkIntervals = interval,
+			IsPrepared = dirPreparation.isPrepared
 		}
 	}
 	output {
