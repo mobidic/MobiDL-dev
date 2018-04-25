@@ -10,6 +10,7 @@ task gatkHaplotypeCaller {
 	#String SwMode
 	File GatkIntervals
 	String IntervalName = basename("${GatkIntervals}", ".interval")
+	Boolean IsPrepared
 	command {
 		${GatkExe} HaplotypeCaller \
 		-R ${Fasta} \

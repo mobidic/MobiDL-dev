@@ -3,6 +3,7 @@ task bedToGatkIntervalList {
   File IntervalBed
   String IdSample
   String OutDir
+  Boolean IsPrepared
   command <<<
     ${AwkExe} 'BEGIN {OFS=""} {if ($1 !~ /track/) {print $1,":",$2+1,"-",$3}}' \
     ${IntervalBed} \

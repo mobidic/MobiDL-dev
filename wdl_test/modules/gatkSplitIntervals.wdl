@@ -8,6 +8,7 @@ task gatkSplitIntervals {
   String IdSample
   Int Threads
   String SubdivisionMode
+  Boolean IsPrepared
 
   command {
     ${GatkExe} SplitIntervals \
