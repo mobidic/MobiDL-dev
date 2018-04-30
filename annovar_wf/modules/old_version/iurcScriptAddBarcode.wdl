@@ -1,0 +1,10 @@
+task iurcScriptAddBarcode {
+
+  command {
+
+  }
+
+  output {
+
+  }
+}

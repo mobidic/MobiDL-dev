@@ -1,0 +1,10 @@
+task annovarAnnotateVariation {
+
+  command {
+
+  }
+
+  output {
+
+  }
+}
