@@ -1,0 +1,10 @@
+task annovarTable {
+
+  command {
+
+  }
+
+  output {
+
+  }
+}
