@@ -4,7 +4,11 @@ task annovarForMpa {
 
   File CustomXref
   File InputVcf
+  File RefAnnotateVariation
+  File RefCodingChange
   File RefConvert2Annovar
+  File RefRetrieveSeqFromFasta
+  File VariantsReduction
   File TableAnnovarExe
   String HumanDb
   String IdSample
