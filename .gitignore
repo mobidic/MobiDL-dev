@@ -10,3 +10,4 @@ annovar_wf/modules/old_version
 annovar_wf/test
 annovar_wf/disease.txt
 panelCap*
+output
