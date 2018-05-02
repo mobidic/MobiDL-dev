@@ -14,9 +14,9 @@ task captainAchab {
   File AchabExe
   File InterestGene
   File ControlSample
-  File FatherSample
-  File IndexSample
-  File MotherSample
+  String FatherSample
+  String IndexSample
+  String MotherSample
   File OutMpa
   File OutPhenolyzer
   Float AllelicFrequency
@@ -34,9 +34,9 @@ task captainAchab {
     --control ${ControlSample} \
     --trio ${CheckTrio} \
     --candidates ${InterestGene} \
-    --phonolyzerFile ${OutPhenolyzer} \
+    --phenolyzerFile ${OutPhenolyzer} \
     --popFreqThr ${AllelicFrequency} \
-    --customInfo ${CustomInfo}
+    --customInfo ${CustomInfo} \
     --newHope ${NewHope}
   >>>
 
