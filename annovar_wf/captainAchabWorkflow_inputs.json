@@ -4,7 +4,7 @@
   "captainAchabWorkflow.newHope": "NO",
   "captainAchabWorkflow.controlSample": "/usr/local/share/refData/genome/hg19/hg19.fa",
   "captainAchabWorkflow.interestGene": "/home/nsoirat/MobiDL-dev/annovar_wf/test/",
-  "captainAchabWorkflow.diseaseFile": "/home/nsoirat/Captain-ACHAB/disease.txt",
+  "captainAchabWorkflow.diseaseFile": "disease.txt",
   "captainAchabWorkflow.indexSample": "CAD180045-CI",
   "captainAchabWorkflow.fatherSample": "CSG180964-pere",
   "captainAchabWorkflow.inputVcf": "/home/nsoirat/MobiDL-dev/annovar_wf/test/MPA.vcf",
@@ -18,5 +18,10 @@
   "captainAchabWorkflow.allelicFrequency": "0.01",
   "captainAchabWorkflow.achabExe": "/softs/Captain-ACHAB/achab.pl",
   "captainAchabWorkflow.humanDb": "/softs/annovar/humandb/",
-  "captainAchabWorkflow.refConvert2Annovar":"/softs/annovar/convert2annovar.pl"
+  "captainAchabWorkflow.refAnnotateVariation":"/softs/annovar/annotate_variation.pl",
+  "captainAchabWorkflow.refCodingChange":"/softs/annovar/coding_change.pl",
+  "captainAchabWorkflow.refConvert2Annovar":"/softs/annovar/convert2annovar.pl",
+  "captainAchabWorkflow.refRetrieveSeqFromFasta":"/softs/annovar/retrieve_seq_from_fasta.pl",
+  "captainAchabWorkflow.refVariantsReduction":"/softs/annovar/variants_reduction.pl"
+
 }

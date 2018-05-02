@@ -8,7 +8,7 @@ task annovarForMpa {
   File RefCodingChange
   File RefConvert2Annovar
   File RefRetrieveSeqFromFasta
-  File VariantsReduction
+  File RefVariantsReduction
   File TableAnnovarExe
   String HumanDb
   String IdSample
@@ -19,13 +19,15 @@ task annovarForMpa {
     ${InputVcf} \
     ${HumanDb} \
     -buildver hg19 \
-    -out ${OutDir}${IdSample}/${IdSample}.hg19_multianno.vcf \
+    -out ${OutDir}${IdSample}/${IdSample} \
     -remove \
     -protocol refGene,refGene,clinvar_20170905,dbnsfp33a,spidex,dbscsnv11,gnomad_exome,gnomad_genome,intervar_20180118 -operation gx,g,f,f,f,f,f,f,f -nastring . -vcfinput -otherinfo -arg '-splicing 20','-hgvs',,,,,,, \
     -xref ${CustomXref}
   >>>
 
   output {
-    File outAnnotation = "${OutDir}${IdSample}/${IdSample}.hg19_multianno.vcf"
+    File outAnnotationVcf = "${OutDir}${IdSample}/${IdSample}.hg19_multianno.vcf"
+    File outAnnotationAvinput = "${OutDir}${IdSample}/${IdSample}.avinput"
+    File outAnnotationTxt = "${OutDir}${IdSample}/${IdSample}.hg19_multianno.txt"
   }
 }

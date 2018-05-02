@@ -18,7 +18,11 @@ workflow captainAchabWorkflow {
   ## From annovarForMpa
   File customXref
   File inputVcf
+  File refAnnotateVariation
+  File refCodingChange
   File refConvert2Annovar
+  File refRetrieveSeqFromFasta
+  File refVariantsReduction
   String humanDb
   ## From phenolyzer
   File diseaseFile
@@ -40,7 +44,11 @@ workflow captainAchabWorkflow {
     input:
     CustomXref = customXref,
     InputVcf = inputVcf,
+    RefAnnotateVariation = refAnnotateVariation,
+    RefCodingChange = refCodingChange,
     RefConvert2Annovar = refConvert2Annovar,
+    RefRetrieveSeqFromFasta = refRetrieveSeqFromFasta,
+    RefVariantsReduction = refVariantsReduction,
     TableAnnovarExe = tableAnnovarExe,
     HumanDb = humanDb,
     IdSample = idSample,
@@ -50,7 +58,7 @@ workflow captainAchabWorkflow {
   call runMpa.mpa {
     input:
     MpaExe = mpaExe,
-    OutAnnotation = annovarForMpa.outAnnotation,
+    OutAnnotation = annovarForMpa.outAnnotationVcf,
     IdSample = idSample,
     OutDir = outDir
   }
@@ -59,8 +67,7 @@ workflow captainAchabWorkflow {
     input:
     DiseaseFile = diseaseFile,
     PhenolyzerExe = phenolyzerExe,
-    IdSample = idSample,
-    OutDir = outDir
+    IdSample = idSample
   }
 
   call runCaptainAchab.captainAchab {
