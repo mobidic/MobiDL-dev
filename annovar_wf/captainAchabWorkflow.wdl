@@ -63,12 +63,7 @@ workflow captainAchabWorkflow {
     OutDir = outDir
   }
 
-  call runPhenolyzer.phenolyzer {
-    input:
-    DiseaseFile = diseaseFile,
-    PhenolyzerExe = phenolyzerExe,
-    IdSample = idSample
-  }
+  call runPhenolyzer.phenolyzer {}
 
   call runCaptainAchab.captainAchab {
     input:
