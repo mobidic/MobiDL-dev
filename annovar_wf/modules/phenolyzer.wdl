@@ -8,11 +8,12 @@ task phenolyzer {
   # On ne peut préciser l'outdir général car il duplique le /
   #String OutDir
 
-  command {
-    perl /softs/phenolyzer/disease_annotation.pl disease.txt -f -p -ph -logistic -out disease/out
-  }
+  command <<<
+    cd /softs/phenolyzer/ \
+    && perl disease_annotation.pl disease.txt -f -p -ph -logistic -out out/disease/out
+  >>>
 
   output {
-    File outPhenolyzer = "/home/nsoirat/MobiDL-dev/annovar_wf/output/${IdSample}/disease/${IdSample}.out.predicted_gene_scores"
+    File outPhenolyzer = "/softs/phenolyzer/out/disease/out.predicted_gene_scores"
   }
 }

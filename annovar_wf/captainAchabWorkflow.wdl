@@ -29,9 +29,9 @@ workflow captainAchabWorkflow {
   ## From captainAchab
   File interestGene
   File controlSample
-  File fatherSample
-  File indexSample
-  File motherSample
+  String fatherSample
+  String indexSample
+  String motherSample
   Float allelicFrequency
   String checkTrio
   String customInfo
