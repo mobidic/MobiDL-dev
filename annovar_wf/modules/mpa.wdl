@@ -5,7 +5,7 @@ task mpa {
   File MpaExe
   File OutAnnotation
   String IdSample
-  String OutDir 
+  String OutDir
 
   command {
     python ${MpaExe} \
