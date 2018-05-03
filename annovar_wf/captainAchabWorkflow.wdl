@@ -28,7 +28,7 @@ workflow captainAchabWorkflow {
   File diseaseFile
   ## From captainAchab
   File interestGene
-  File controlSample
+  String controlSample
   String fatherSample
   String indexSample
   String motherSample
