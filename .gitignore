@@ -9,5 +9,7 @@ annovar_wf/output
 annovar_wf/modules/old_version
 annovar_wf/test
 annovar_wf/disease.txt
+annovar_wf/disease
 panelCap*
 output
+options_minimonster.json
