@@ -4,16 +4,13 @@ task captainAchab {
 
   #CAD180045-CI_CSG180964-pere_CSG180965-mere.xlsx
 
-  #--case ${IndexSample} \
-  #--dad ${FatherSample} \
-  #--mum ${MotherSample} \
 
-
-  #--candidate ${InterestGene} \b
+  #--customInfo ${CustomInfo} \
+  #--control ${ControlSample} \
 
   File AchabExe
   File InterestGene
-  File ControlSample
+  String ControlSample
   String FatherSample
   String IndexSample
   String MotherSample
@@ -25,7 +22,7 @@ task captainAchab {
   String NewHope
 
 
-  command <<<
+  command {
     perl ${AchabExe} \
     --vcf ${OutMpa} \
     --case ${IndexSample} \
@@ -36,8 +33,8 @@ task captainAchab {
     --candidates ${InterestGene} \
     --phenolyzerFile ${OutPhenolyzer} \
     --popFreqThr ${AllelicFrequency} \
-    --customInfo ${CustomInfo} \
+    --customInfo ${CustomInfo} \
     --newHope ${NewHope}
-  >>>
+  }
 
 }
