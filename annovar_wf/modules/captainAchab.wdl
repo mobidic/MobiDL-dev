@@ -12,20 +12,23 @@ task captainAchab {
   File InterestGene
   String ControlSample
   String FatherSample
-  String IndexSample
+  String CaseSample
   String MotherSample
   File OutMpa
   File OutPhenolyzer
   Float AllelicFrequency
   String CheckTrio
   String CustomInfo
+  String IdSample
   String NewHope
+  String OutDir
 
 
   command {
     perl ${AchabExe} \
     --vcf ${OutMpa} \
-    --case ${IndexSample} \
+    --outDir ${OutDir}${IdSample}/achab_excel/ \
+    --case ${CaseSample} \
     --dad ${FatherSample} \
     --mum ${MotherSample} \
     --control ${ControlSample} \
@@ -35,6 +38,10 @@ task captainAchab {
     --popFreqThr ${AllelicFrequency} \
     --customInfo ${CustomInfo} \
     --newHope ${NewHope}
+  }
+
+  output {
+    File outAchab = "${OutDir}${IdSample}/achab_excel/${CaseSample}_${FatherSample}_${MotherSample}_${ControlSample}.xlsx"
   }
 
 }
