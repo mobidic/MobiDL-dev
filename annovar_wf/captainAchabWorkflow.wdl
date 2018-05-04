@@ -30,7 +30,7 @@ workflow captainAchabWorkflow {
   File interestGene
   String controlSample
   String fatherSample
-  String indexSample
+  String caseSample
   String motherSample
   Float allelicFrequency
   String checkTrio
@@ -63,7 +63,12 @@ workflow captainAchabWorkflow {
     OutDir = outDir
   }
 
-  call runPhenolyzer.phenolyzer {}
+  call runPhenolyzer.phenolyzer {
+    input:
+    PhenolyzerExe = phenolyzerExe,
+    IdSample = idSample,
+    OutDir = outDir
+  }
 
   call runCaptainAchab.captainAchab {
     input:
@@ -71,14 +76,16 @@ workflow captainAchabWorkflow {
     InterestGene = interestGene,
     ControlSample = controlSample,
     FatherSample = fatherSample,
-    IndexSample = indexSample,
+    CaseSample = caseSample,
     MotherSample = motherSample,
     OutMpa = mpa.outMpa,
     OutPhenolyzer = phenolyzer.outPhenolyzer,
     AllelicFrequency = allelicFrequency,
     CheckTrio = checkTrio,
     CustomInfo = customInfo,
-    NewHope = newHope
+    IdSample = idSample,
+    NewHope = newHope,
+    OutDir = outDir
   }
 
 }
