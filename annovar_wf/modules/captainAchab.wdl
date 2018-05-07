@@ -7,6 +7,9 @@ task captainAchab {
 
   #--customInfo ${CustomInfo} \
   #--control ${ControlSample} \
+  #  output {
+    #  File outAchab = "${OutDir}${IdSample}/achab_excel/${CaseSample}_${FatherSample}_${MotherSample}_${ControlSample}.xlsx"
+  #  }
 
   File AchabExe
   File InterestGene
@@ -39,9 +42,4 @@ task captainAchab {
     --customInfo ${CustomInfo} \
     --newHope ${NewHope}
   }
-
-  output {
-    File outAchab = "${OutDir}${IdSample}/achab_excel/${CaseSample}_${FatherSample}_${MotherSample}_${ControlSample}.xlsx"
-  }
-
 }
