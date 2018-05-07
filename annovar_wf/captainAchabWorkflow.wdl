@@ -8,6 +8,9 @@ import "modules/captainAchab.wdl" as runCaptainAchab
 workflow captainAchabWorkflow {
 
   #Variable section
+  ## Language Path
+  String perlPath
+  String pythonPath
   ## Exe
   File achabExe
   File mpaExe
@@ -29,7 +32,7 @@ workflow captainAchabWorkflow {
   File diseaseFile
   ## From captainAchab
   File interestGene
-  String controlSample
+  #String controlSample
   String fatherSample
   String caseSample
   String motherSample
@@ -60,7 +63,8 @@ workflow captainAchabWorkflow {
     TableAnnovarExe = tableAnnovarExe,
     HumanDb = humanDb,
     IdSample = idSample,
-    OutDir = outDir
+    OutDir = outDir,
+    PerlPath = perlPath
   }
 
   call runMpa.mpa {
@@ -68,7 +72,8 @@ workflow captainAchabWorkflow {
     MpaExe = mpaExe,
     OutAnnotation = annovarForMpa.outAnnotationVcf,
     IdSample = idSample,
-    OutDir = outDir
+    OutDir = outDir,
+    PythonPath = pythonPath
   }
 
   call runPhenolyzer.phenolyzer {
@@ -76,14 +81,14 @@ workflow captainAchabWorkflow {
     IsPrepared = dirPreparation.isPrepared,
     PhenolyzerExe = phenolyzerExe,
     IdSample = idSample,
-    OutDir = outDir
+    OutDir = outDir,
+    PerlPath = perlPath
   }
 
   call runCaptainAchab.captainAchab {
     input:
     AchabExe = achabExe,
     InterestGene = interestGene,
-    ControlSample = controlSample,
     FatherSample = fatherSample,
     CaseSample = caseSample,
     MotherSample = motherSample,
@@ -94,7 +99,8 @@ workflow captainAchabWorkflow {
     CustomInfo = customInfo,
     IdSample = idSample,
     NewHope = newHope,
-    OutDir = outDir
+    OutDir = outDir,
+    PerlPath = perlPath
   }
 
 }

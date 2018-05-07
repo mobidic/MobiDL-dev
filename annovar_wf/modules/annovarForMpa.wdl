@@ -13,9 +13,10 @@ task annovarForMpa {
   String HumanDb
   String IdSample
   String OutDir
+  String PerlPath
 
   command <<<
-    perl ${TableAnnovarExe} \
+    ${PerlPath} ${TableAnnovarExe} \
     ${InputVcf} \
     ${HumanDb} \
     -buildver hg19 \

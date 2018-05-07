@@ -8,10 +8,11 @@ task phenolyzer {
   File PhenolyzerExe
   String IdSample
   String OutDir
+  String PerlPath
 
   command <<<
     cd ${PhenolyzerExe}
-    perl disease_annotation.pl disease.txt -f -p -ph -logistic -out out/disease/${IdSample}
+    ${PerlPath} disease_annotation.pl disease.txt -f -p -ph -logistic -out out/disease/${IdSample}
     mv ${PhenolyzerExe}/out/disease/${IdSample}.predicted_gene_scores ${OutDir}${IdSample}/disease/
   >>>
 

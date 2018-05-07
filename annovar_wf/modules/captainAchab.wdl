@@ -11,9 +11,11 @@ task captainAchab {
     #  File outAchab = "${OutDir}${IdSample}/achab_excel/${CaseSample}_${FatherSample}_${MotherSample}_${ControlSample}.xlsx"
   #  }
 
+  #Trio = dad/mum/case mais si control, trio ne marche pas
+
   File AchabExe
   File InterestGene
-  String ControlSample
+  #String ControlSample
   String FatherSample
   String CaseSample
   String MotherSample
@@ -25,16 +27,16 @@ task captainAchab {
   String IdSample
   String NewHope
   String OutDir
+  String PerlPath
 
 
   command {
-    perl ${AchabExe} \
+    ${PerlPath} ${AchabExe} \
     --vcf ${OutMpa} \
     --outDir ${OutDir}${IdSample}/achab_excel/ \
     --case ${CaseSample} \
     --dad ${FatherSample} \
     --mum ${MotherSample} \
-    --control ${ControlSample} \
     --trio ${CheckTrio} \
     --candidates ${InterestGene} \
     --phenolyzerFile ${OutPhenolyzer} \

@@ -6,9 +6,10 @@ task mpa {
   File OutAnnotation
   String IdSample
   String OutDir
+  String PythonPath
 
   command {
-    python ${MpaExe} \
+    ${PythonPath} ${MpaExe} \
     -i ${OutAnnotation} \
     -o ${OutDir}${IdSample}/${IdSample}.hg19_multianno_MPA.vcf
   }
