@@ -7,9 +7,7 @@ task captainAchab {
 
   #--customInfo ${CustomInfo} \
   #--control ${ControlSample} \
-  #  output {
-    #  File outAchab = "${OutDir}${IdSample}/achab_excel/${CaseSample}_${FatherSample}_${MotherSample}_${ControlSample}.xlsx"
-  #  }
+
 
   #Trio = dad/mum/case mais si control, trio ne marche pas
 
@@ -43,5 +41,8 @@ task captainAchab {
     --popFreqThr ${AllelicFrequency} \
     --customInfo ${CustomInfo} \
     --newHope ${NewHope}
+  }
+  output {
+    File outAchab = "${OutDir}${IdSample}/achab_excel/${CaseSample}_${FatherSample}_${MotherSample}_.xlsx"
   }
 }
