@@ -1,5 +1,6 @@
 #Import section
 import "modules/dirPreparation.wdl" as runDirPreparation
+import "modules/dirRemove.wdl" as runDirRemove
 import "modules/annovarForMpa.wdl" as runAnnovarForMpa
 import "modules/mpa.wdl" as runMpa
 import "modules/phenolyzer.wdl" as runPhenolyzer
@@ -46,13 +47,23 @@ workflow captainAchabWorkflow {
 
   call runDirPreparation.dirPreparation{
     input:
+    IsRemoved = dirRemove.isRemoved,
+    IdSample = idSample,
     OutDir = outDir,
-    IdSample = idSample
+    PhenolyzerExe = phenolyzerExe
+  }
+
+  call runDirRemove.dirRemove{
+    input:
+    IdSample = idSample,
+    OutDir = outDir,
+    PhenolyzerExe = phenolyzerExe
   }
 
   call runAnnovarForMpa.annovarForMpa {
     input:
     IsPrepared = dirPreparation.isPrepared,
+    IsRemoved = dirRemove.isRemoved,
     CustomXref = customXref,
     InputVcf = inputVcf,
     RefAnnotateVariation = refAnnotateVariation,
@@ -78,7 +89,7 @@ workflow captainAchabWorkflow {
 
   call runPhenolyzer.phenolyzer {
     input:
-    DiseaseFile = diseaseFile, 
+    DiseaseFile = diseaseFile,
     IsPrepared = dirPreparation.isPrepared,
     PhenolyzerExe = phenolyzerExe,
     IdSample = idSample,

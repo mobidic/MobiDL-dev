@@ -1,6 +1,8 @@
 task dirPreparation {
-  String OutDir
+  Boolean IsRemoved
   String IdSample
+  String OutDir
+  String PhenolyzerExe
 
   command {
     if [ ! -d "${OutDir}" ]; \
@@ -19,6 +21,16 @@ task dirPreparation {
     then \
       mkdir "${OutDir}${IdSample}/achab_excel"; \
     fi
+    if [ ! -d "${PhenolyzerExe}/out" ]; then \
+      mkdir "${PhenolyzerExe}/out"; \
+    fi
+    if [ ! -d "${PhenolyzerExe}/out/disease" ]; then \
+      mkdir "${PhenolyzerExe}/out/disease"; \
+    fi
+    if [ ! -d "${PhenolyzerExe}/disease_files" ]; then \
+      mkdir "${PhenolyzerExe}/disease_files"; \
+    fi
+
   }
   output {
     Boolean isPrepared = true
