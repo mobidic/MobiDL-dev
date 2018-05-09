@@ -6,13 +6,16 @@ task phenolyzer {
   # On réaliser donc la commande cd pour travailler dans le répertoire de Phenolyzer et on utilise mv pour transférer tous les outputs vers notre dossier output désiré.
   Boolean IsPrepared
   File PhenolyzerExe
+  File DiseaseFile
   String IdSample
   String OutDir
   String PerlPath
 
   command <<<
+    rm /softs/phenolyzer/disease_files/disease.txt
+    cp ${DiseaseFile} /softs/phenolyzer/disease_files/
     cd ${PhenolyzerExe}
-    ${PerlPath} disease_annotation.pl disease.txt -f -p -ph -logistic -out out/disease/${IdSample}
+    ${PerlPath} disease_annotation.pl disease_files/disease.txt -f -p -ph -logistic -out out/disease/${IdSample}
     mv ${PhenolyzerExe}/out/disease/${IdSample}.predicted_gene_scores ${OutDir}${IdSample}/disease/
   >>>
 

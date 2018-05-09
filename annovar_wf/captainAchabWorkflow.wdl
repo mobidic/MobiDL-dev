@@ -78,6 +78,7 @@ workflow captainAchabWorkflow {
 
   call runPhenolyzer.phenolyzer {
     input:
+    DiseaseFile = diseaseFile, 
     IsPrepared = dirPreparation.isPrepared,
     PhenolyzerExe = phenolyzerExe,
     IdSample = idSample,
