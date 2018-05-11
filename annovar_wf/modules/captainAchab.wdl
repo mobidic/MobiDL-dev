@@ -35,14 +35,14 @@ task captainAchab {
     --case ${CaseSample} \
     --dad ${FatherSample} \
     --mum ${MotherSample} \
-    --trio ${CheckTrio} \
+    ${CheckTrio} \
     --candidates ${InterestGene} \
     --phenolyzerFile ${OutPhenolyzer} \
     --popFreqThr ${AllelicFrequency} \
     --customInfo ${CustomInfo} \
-    --newHope ${NewHope}
+    ${NewHope}
   }
   output {
-    File outAchab = "${OutDir}${IdSample}/achab_excel/${CaseSample}_${FatherSample}_${MotherSample}_.xlsx"
+    File outAchab = "${OutDir}${IdSample}/achab_excel/achab_catch.xlsx"
   }
 }
