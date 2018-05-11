@@ -1,6 +1,5 @@
 annovar_wf/test/
 pannelCapture.wdl
-pannelCapture_MiniFastqTest_inputs.json
 /modules
 wdl_test/cromwell*
 wdl_test/output
@@ -12,5 +11,4 @@ annovar_wf/disease.txt
 annovar_wf/disease
 panelCap*
 output
-options_minimonster.json
-annovar_wf/captainAchabWorkflow_inputs.json
+*.json
