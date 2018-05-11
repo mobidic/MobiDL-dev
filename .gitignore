@@ -7,6 +7,8 @@ annovar_wf/cromwell*
 annovar_wf/output
 annovar_wf/modules/old_version
 annovar_wf/test
+annovar_wf/input
+annovar_wf/save
 annovar_wf/disease.txt
 annovar_wf/disease
 panelCap*
