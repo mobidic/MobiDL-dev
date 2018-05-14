@@ -5,6 +5,7 @@ import "modules/annovarForMpa.wdl" as runAnnovarForMpa
 import "modules/mpa.wdl" as runMpa
 import "modules/phenolyzer.wdl" as runPhenolyzer
 import "modules/captainAchab.wdl" as runCaptainAchab
+import "modules/captainAchabNewHope.wdl" as runCaptainAchabNewHope
 
 workflow captainAchabWorkflow {
 
@@ -32,15 +33,14 @@ workflow captainAchabWorkflow {
   ## From phenolyzer
   File diseaseFile
   ## From captainAchab
+  Boolean newHope
   File interestGene
-  #String controlSample
   String fatherSample
   String caseSample
   String motherSample
   Float allelicFrequency
   String checkTrio
   String customInfo
-  String newHope
 
 
   #Call section
@@ -96,23 +96,41 @@ workflow captainAchabWorkflow {
     OutDir = outDir,
     PerlPath = perlPath
   }
-
-  call runCaptainAchab.captainAchab {
-    input:
-    AchabExe = achabExe,
-    InterestGene = interestGene,
-    FatherSample = fatherSample,
-    CaseSample = caseSample,
-    MotherSample = motherSample,
-    OutMpa = mpa.outMpa,
-    OutPhenolyzer = phenolyzer.outPhenolyzer,
-    AllelicFrequency = allelicFrequency,
-    CheckTrio = checkTrio,
-    CustomInfo = customInfo,
-    IdSample = idSample,
-    NewHope = newHope,
-    OutDir = outDir,
-    PerlPath = perlPath
+  if (newHope) {
+    call runCaptainAchabNewHope.captainAchabNewHope {
+      input:
+      AchabExe = achabExe,
+      InterestGene = interestGene,
+      FatherSample = fatherSample,
+      CaseSample = caseSample,
+      MotherSample = motherSample,
+      OutMpa = mpa.outMpa,
+      OutPhenolyzer = phenolyzer.outPhenolyzer,
+      AllelicFrequency = allelicFrequency,
+      CheckTrio = checkTrio,
+      CustomInfo = customInfo,
+      IdSample = idSample,
+      OutDir = outDir,
+      PerlPath = perlPath
+    }
   }
 
+  if (!newHope) {
+    call runCaptainAchab.captainAchab {
+      input:
+      AchabExe = achabExe,
+      InterestGene = interestGene,
+      FatherSample = fatherSample,
+      CaseSample = caseSample,
+      MotherSample = motherSample,
+      OutMpa = mpa.outMpa,
+      OutPhenolyzer = phenolyzer.outPhenolyzer,
+      AllelicFrequency = allelicFrequency,
+      CheckTrio = checkTrio,
+      CustomInfo = customInfo,
+      IdSample = idSample,
+      OutDir = outDir,
+      PerlPath = perlPath
+    }
+  }
 }

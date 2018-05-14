@@ -1,4 +1,4 @@
-task captainAchab {
+task captainAchabNewHope {
 
   #Trio = dad/mum/case mais si control, trio ne marche pas
 
@@ -29,9 +29,11 @@ task captainAchab {
     --candidates ${InterestGene} \
     --phenolyzerFile ${OutPhenolyzer} \
     --popFreqThr ${AllelicFrequency} \
-    --customInfo ${CustomInfo} \
+    --newHope \
+    --customInfo ${CustomInfo} 
+
   }
   output {
-    File outAchab = "${OutDir}${IdSample}/achab_excel/achab_catch.xlsx"
+    File outAchab = "${OutDir}${IdSample}/achab_excel/achab_catch_newHope.xlsx"
   }
 }
