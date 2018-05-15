@@ -6,6 +6,10 @@ import "modules/mpa.wdl" as runMpa
 import "modules/phenolyzer.wdl" as runPhenolyzer
 import "modules/captainAchab.wdl" as runCaptainAchab
 import "modules/captainAchabNewHope.wdl" as runCaptainAchabNewHope
+import "modules/bcftoolsSplit.wdl" as runBcftoolsSplit
+import "modules/bcftoolsLeftAlign.wdl" as runBcftoolsLeftAlign
+import "modules/bcftoolsNorm.wdl" as runBcftoolsNorm
+import "modules/gatkSortVcf.wdl" as runGatkSortVcf
 
 workflow captainAchabWorkflow {
 
@@ -18,12 +22,14 @@ workflow captainAchabWorkflow {
   File mpaExe
   File phenolyzerExe
   File tableAnnovarExe
+  File bcftoolsExe
+  File gatkExe
   ## Global
   String idSample
   String outDir
+  Boolean keepFiles
   ## From annovarForMpa
   File customXref
-  File inputVcf
   File refAnnotateVariation
   File refCodingChange
   File refConvert2Annovar
@@ -41,31 +47,72 @@ workflow captainAchabWorkflow {
   Float allelicFrequency
   String checkTrio
   String customInfo
-
+  ## From BcftoolsSplit 
+  File inputVcf
+  ## From BcftoolsLeftAlign 
+  File fastaGenome
 
   #Call section
 
+  call runBcftoolsSplit.bcftoolsSplit {
+    input: 
+    IsPrepared = dirPreparation.isPrepared, 
+    InputVcf = inputVcf, 
+    BcftoolsExe = bcftoolsExe, 
+    IdSample = idSample, 
+    OutDir = outDir
+  }
+
+  call runBcftoolsLeftAlign.bcftoolsLeftAlign {
+    input:
+    BcftoolsExe = bcftoolsExe, 
+    FastaGenome = fastaGenome, 
+    SplittedVcf = bcftoolsSplit.outBcfSplit, 
+    OutDir = outDir, 
+    IdSample = idSample
+  }
+
+  call runBcftoolsNorm.bcftoolsNorm {
+    input: 
+    IdSample = idSample, 
+    OutDir = outDir, 
+    BcftoolsExe = bcftoolsExe, 
+    AlignVcf = bcftoolsLeftAlign.outBcfLeftAlign
+  }
+
+  call runGatkSortVcf.gatkSortVcf {
+    input:
+    IdSample = idSample, 
+    OutDir = outDir, 
+    GatkExe = gatkExe, 
+    UnsortedVcf = bcftoolsNorm.outBcfNorm
+  }
+
   call runDirPreparation.dirPreparation{
     input:
-    IsRemoved = dirRemove.isRemoved,
     IdSample = idSample,
     OutDir = outDir,
-    PhenolyzerExe = phenolyzerExe
+    PhenolyzerExe = phenolyzerExe,
+    InputVcf = inputVcf
   }
 
-  call runDirRemove.dirRemove{
-    input:
-    IdSample = idSample,
-    OutDir = outDir,
-    PhenolyzerExe = phenolyzerExe
-  }
+  if (!keepFiles) {
 
+    call runDirRemove.dirRemove{
+      input:
+      IdSample = idSample,
+      OutDir = outDir,
+      PhenolyzerExe = phenolyzerExe,
+      OutPhenolyzer = phenolyzer.outPhenolyzer,
+      OutAchab = captainAchab.outAchab, 
+      OutAchabNewHope = captainAchabNewHope.outAchab
+    }
+  }
+  
   call runAnnovarForMpa.annovarForMpa {
     input:
-    IsPrepared = dirPreparation.isPrepared,
-    IsRemoved = dirRemove.isRemoved,
     CustomXref = customXref,
-    InputVcf = inputVcf,
+    InputVcf = gatkSortVcf.sortedVcf,
     RefAnnotateVariation = refAnnotateVariation,
     RefCodingChange = refCodingChange,
     RefConvert2Annovar = refConvert2Annovar,
@@ -89,48 +136,44 @@ workflow captainAchabWorkflow {
 
   call runPhenolyzer.phenolyzer {
     input:
-    DiseaseFile = diseaseFile,
     IsPrepared = dirPreparation.isPrepared,
+    DiseaseFile = diseaseFile,
     PhenolyzerExe = phenolyzerExe,
     IdSample = idSample,
     OutDir = outDir,
     PerlPath = perlPath
   }
-  if (newHope) {
-    call runCaptainAchabNewHope.captainAchabNewHope {
-      input:
-      AchabExe = achabExe,
-      InterestGene = interestGene,
-      FatherSample = fatherSample,
-      CaseSample = caseSample,
-      MotherSample = motherSample,
-      OutMpa = mpa.outMpa,
-      OutPhenolyzer = phenolyzer.outPhenolyzer,
-      AllelicFrequency = allelicFrequency,
-      CheckTrio = checkTrio,
-      CustomInfo = customInfo,
-      IdSample = idSample,
-      OutDir = outDir,
-      PerlPath = perlPath
-    }
-  }
+  call runCaptainAchabNewHope.captainAchabNewHope {
+    input:
+     AchabExe = achabExe,
+     InterestGene = interestGene,
+     FatherSample = fatherSample,
+     CaseSample = caseSample,
+     MotherSample = motherSample,
+     OutMpa = mpa.outMpa,
+     OutPhenolyzer = phenolyzer.outPhenolyzer,
+     AllelicFrequency = allelicFrequency,
+     CheckTrio = checkTrio,
+     CustomInfo = customInfo,
+     IdSample = idSample,
+     OutDir = outDir,
+     PerlPath = perlPath
+   }
 
-  if (!newHope) {
-    call runCaptainAchab.captainAchab {
-      input:
-      AchabExe = achabExe,
-      InterestGene = interestGene,
-      FatherSample = fatherSample,
-      CaseSample = caseSample,
-      MotherSample = motherSample,
-      OutMpa = mpa.outMpa,
-      OutPhenolyzer = phenolyzer.outPhenolyzer,
-      AllelicFrequency = allelicFrequency,
-      CheckTrio = checkTrio,
-      CustomInfo = customInfo,
-      IdSample = idSample,
-      OutDir = outDir,
-      PerlPath = perlPath
-    }
+  call runCaptainAchab.captainAchab {
+     input:
+     AchabExe = achabExe,
+     InterestGene = interestGene,
+     FatherSample = fatherSample,
+     CaseSample = caseSample,
+     MotherSample = motherSample,
+     OutMpa = mpa.outMpa,
+     OutPhenolyzer = phenolyzer.outPhenolyzer,
+     AllelicFrequency = allelicFrequency,
+     CheckTrio = checkTrio,
+     CustomInfo = customInfo,
+     IdSample = idSample,
+     OutDir = outDir,
+     PerlPath = perlPath
   }
 }
