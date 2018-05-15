@@ -2,24 +2,11 @@ task dirRemove {
   String IdSample
   String OutDir
   String PhenolyzerExe
+  File OutPhenolyzer
+  File OutAchab
+  File OutAchabNewHope
 
   command {
-    if [ -d "${OutDir}" ]; \
-    then \
-      rm -rf "${OutDir}"; \
-    fi
-    if [ -d "${OutDir}${IdSample}" ]; \
-    then \
-      rm -rf "${OutDir}${IdSample}"; \
-    fi
-    if [ -d "${OutDir}${IdSample}/disease" ]; \
-    then \
-      rm -rf "${OutDir}${IdSample}/disease"; \
-    fi
-    if [ -d "${OutDir}${IdSample}/achab_excel" ]; \
-    then \
-      rm -rf "${OutDir}${IdSample}/achab_excel"; \
-    fi
     if [ -d "${PhenolyzerExe}/out" ]; then \
       rm -rf "${PhenolyzerExe}/out"; \
     fi
@@ -32,7 +19,24 @@ task dirRemove {
     if [ -f "${PhenolyzerExe}/disease.txt" ]; then \
       rm "${PhenolyzerExe}/disease.txt"; \
     fi
-
+    if [ -d "${OutDir}${IdSample}/bcftools" ]; then \
+      rm -rf "${OutDir}${IdSample}/bcftools"; \
+    fi 
+    if [ -f "${OutDir}${IdSample}/${IdSample}.avinput" ]; then \
+      rm "${OutDir}${IdSample}/${IdSample}.avinput"; \
+    fi 
+    if [ -f "${OutDir}${IdSample}/${IdSample}.hg19_multianno.txt" ]; then \
+      rm "${OutDir}${IdSample}/${IdSample}.hg19_multianno.txt"; \
+    fi 
+    if [ -f "${OutDir}${IdSample}/${IdSample}.hg19_multianno.vcf" ]; then \
+      rm "${OutDir}${IdSample}/${IdSample}.hg19_multianno.vcf"; \
+    fi 
+    if [ -f "${OutDir}${IdSample}/${IdSample}.sorted.vcf" ]; then \
+      rm "${OutDir}${IdSample}/${IdSample}.sorted.vcf"; \
+    fi
+    if [ -f "${OutDir}${IdSample}/${IdSample}.sorted.vcf.idx" ]; then \
+      rm "${OutDir}${IdSample}/${IdSample}.sorted.txt"; \
+    fi
   }
   output {
     Boolean isRemoved = true

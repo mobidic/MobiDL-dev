@@ -1,8 +1,8 @@
 task dirPreparation {
-  Boolean IsRemoved
   String IdSample
   String OutDir
   String PhenolyzerExe
+  File InputVcf
 
   command {
     if [ ! -d "${OutDir}" ]; \
@@ -30,6 +30,10 @@ task dirPreparation {
     if [ ! -d "${PhenolyzerExe}/disease_files" ]; then \
       mkdir "${PhenolyzerExe}/disease_files"; \
     fi
+    if [ ! -d "${OutDir}${IdSample}/bcftools" ]; then \
+      mkdir "${OutDir}${IdSample}/bcftools"; \
+    fi
+    cp ${InputVcf} ${OutDir}${IdSample}/
 
   }
   output {
