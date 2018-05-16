@@ -40,7 +40,7 @@ workflow captainAchabWorkflow {
   File diseaseFile
   ## From captainAchab
   Boolean newHope
-  File interestGene
+  File genesOfInterest
   String fatherSample
   String caseSample
   String motherSample
@@ -146,7 +146,7 @@ workflow captainAchabWorkflow {
   call runCaptainAchabNewHope.captainAchabNewHope {
     input:
      AchabExe = achabExe,
-     InterestGene = interestGene,
+     GenesOfInterest = genesOfInterest,
      FatherSample = fatherSample,
      CaseSample = caseSample,
      MotherSample = motherSample,
@@ -163,7 +163,7 @@ workflow captainAchabWorkflow {
   call runCaptainAchab.captainAchab {
      input:
      AchabExe = achabExe,
-     InterestGene = interestGene,
+     GenesOfInterest = genesOfInterest, 
      FatherSample = fatherSample,
      CaseSample = caseSample,
      MotherSample = motherSample,

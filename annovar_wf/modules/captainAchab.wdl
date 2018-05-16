@@ -3,7 +3,7 @@ task captainAchab {
   #Trio = dad/mum/case mais si control, trio ne marche pas
 
   File AchabExe
-  File InterestGene
+  File GenesOfInterest
   #String ControlSample
   String FatherSample
   String CaseSample
@@ -26,7 +26,7 @@ task captainAchab {
     --dad ${FatherSample} \
     --mum ${MotherSample} \
     ${CheckTrio} \
-    --candidates ${InterestGene} \
+    --candidates ${GenesOfInterest} \
     --phenolyzerFile ${OutPhenolyzer} \
     --popFreqThr ${AllelicFrequency} \
     --customInfo ${CustomInfo} \
