@@ -20,7 +20,7 @@ workflow captainAchabWorkflow {
   ## Exe
   File achabExe
   File mpaExe
-  File phenolyzerExe
+  String phenolyzerExe
   File tableAnnovarExe
   File bcftoolsExe
   File gatkExe

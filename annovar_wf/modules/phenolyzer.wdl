@@ -6,7 +6,7 @@ task phenolyzer {
   # On réaliser donc la commande cd pour travailler dans le répertoire de Phenolyzer et on utilise mv pour transférer tous les outputs vers notre dossier output désiré.
   #
   Boolean IsPrepared
-  File PhenolyzerExe
+  String PhenolyzerExe
   File DiseaseFile
   String IdSample
   String OutDir
