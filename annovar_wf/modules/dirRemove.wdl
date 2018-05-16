@@ -35,7 +35,7 @@ task dirRemove {
       rm "${OutDir}${IdSample}/${IdSample}.sorted.vcf"; \
     fi
     if [ -f "${OutDir}${IdSample}/${IdSample}.sorted.vcf.idx" ]; then \
-      rm "${OutDir}${IdSample}/${IdSample}.sorted.txt"; \
+      rm "${OutDir}${IdSample}/${IdSample}.sorted.vcf.idx"; \
     fi
   }
   output {
