@@ -25,8 +25,8 @@ workflow captainAchab {
   File bcftoolsExe
   File gatkExe
   ## Global
-  String SrunLow
-  String WorkflowType
+  String srunLow
+  String workflowType
   String idSample
   String outDir
   Boolean keepFiles
@@ -70,7 +70,7 @@ workflow captainAchab {
   call runBcftoolsLeftAlign.bcftoolsLeftAlign {
     input:
     SrunLow = srunLow, 
-    WorkflowTypr = workflowType, 
+    WorkflowType = workflowType, 
     BcftoolsExe = bcftoolsExe, 
     FastaGenome = fastaGenome, 
     SplittedVcf = bcftoolsSplit.outBcfSplit, 
@@ -116,8 +116,8 @@ workflow captainAchab {
       OutDir = outDir,
       PhenolyzerExe = phenolyzerExe,
       OutPhenolyzer = phenolyzer.outPhenolyzer,
-      OutAchab = captainAchab.outAchab, 
-      OutAchabNewHope = captainAchabNewHope.outAchab
+      OutAchab = achab.outAchab, 
+      OutAchabNewHope = achabNewHope.outAchabNewHope
     }
   }
   

@@ -36,6 +36,6 @@ task achabNewHope {
 
   }
   output {
-    File outAchab = "${OutDir}${IdSample}/${WorkflowType}/achab_excel/achab_catch_newHope.xlsx"
+    File outAchabNewHope = "${OutDir}${IdSample}/${WorkflowType}/achab_excel/achab_catch_newHope.xlsx"
   }
 }
