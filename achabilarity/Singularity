@@ -12,9 +12,9 @@ Include: yum
   yum group install -y "development tools"
   yum -y install  wget git zlib-devel which 
   #Pour Python 3.6.5  
-  yum install -y zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel expat-devel 
+  yum install -y bzip2-devel ncurses-devel readline-devel tk-devel gdbm-devel xz-devel expat-devel 
 
-  echo "Installing last release of Python"
+  echo "Installing the lastest release of Python"
   wget http://python.org/ftp/python/3.6.3/Python-3.6.3.tar.xz
   tar xf Python-3.6.3.tar.xz
   cd Python-3.6.3
