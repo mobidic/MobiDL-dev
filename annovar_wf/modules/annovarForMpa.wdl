@@ -29,7 +29,7 @@ task annovarForMpa {
 
   output {
     File outAnnotationVcf = "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.hg19_multianno.vcf"
-    File outAnnotationAvinput = "${OutDir}${IdSample}/${IdSample}.avinput"
+    File outAnnotationAvinput = "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.avinput"
     File outAnnotationTxt = "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.hg19_multianno.txt"
   }
 }
