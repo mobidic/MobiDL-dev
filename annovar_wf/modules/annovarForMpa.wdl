@@ -9,25 +9,27 @@ task annovarForMpa {
   File RefRetrieveSeqFromFasta
   File RefVariantsReduction
   File TableAnnovarExe
+  String SrunLow
+  String WorkflowType 
   String HumanDb
   String IdSample
   String OutDir
   String PerlPath
 
   command <<<
-    ${PerlPath} ${TableAnnovarExe} \
+    ${SrunLow} ${PerlPath} ${TableAnnovarExe} \
     ${InputVcf} \
     ${HumanDb} \
     -buildver hg19 \
-    -out ${OutDir}${IdSample}/${IdSample} \
+    -out ${OutDir}${IdSample}/${WorkflowType}/${IdSample} \
     -remove \
     -protocol refGene,refGene,clinvar_20170905,dbnsfp33a,spidex,dbscsnv11,gnomad_exome,gnomad_genome,intervar_20180118 -operation gx,g,f,f,f,f,f,f,f -nastring . -vcfinput -otherinfo -arg '-splicing 20','-hgvs',,,,,,, \
     -xref ${CustomXref}
   >>>
 
   output {
-    File outAnnotationVcf = "${OutDir}${IdSample}/${IdSample}.hg19_multianno.vcf"
+    File outAnnotationVcf = "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.hg19_multianno.vcf"
     File outAnnotationAvinput = "${OutDir}${IdSample}/${IdSample}.avinput"
-    File outAnnotationTxt = "${OutDir}${IdSample}/${IdSample}.hg19_multianno.txt"
+    File outAnnotationTxt = "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.hg19_multianno.txt"
   }
 }

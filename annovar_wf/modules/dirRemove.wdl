@@ -1,4 +1,5 @@
 task dirRemove {
+  String WorkflowType
   String IdSample
   String OutDir
   String PhenolyzerExe
@@ -19,23 +20,23 @@ task dirRemove {
     if [ -f "${PhenolyzerExe}/disease.txt" ]; then \
       rm "${PhenolyzerExe}/disease.txt"; \
     fi
-    if [ -d "${OutDir}${IdSample}/bcftools" ]; then \
-      rm -rf "${OutDir}${IdSample}/bcftools"; \
+    if [ -d "${OutDir}${IdSample}/${WorkflowType}/bcftools" ]; then \
+      rm -rf "${OutDir}${IdSample}/${WorkflowType}/bcftools"; \
     fi 
-    if [ -f "${OutDir}${IdSample}/${IdSample}.avinput" ]; then \
-      rm "${OutDir}${IdSample}/${IdSample}.avinput"; \
+    if [ -f "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.avinput" ]; then \
+      rm "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.avinput"; \
     fi 
-    if [ -f "${OutDir}${IdSample}/${IdSample}.hg19_multianno.txt" ]; then \
-      rm "${OutDir}${IdSample}/${IdSample}.hg19_multianno.txt"; \
+    if [ -f "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.hg19_multianno.txt" ]; then \
+      rm "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.hg19_multianno.txt"; \
     fi 
-    if [ -f "${OutDir}${IdSample}/${IdSample}.hg19_multianno.vcf" ]; then \
-      rm "${OutDir}${IdSample}/${IdSample}.hg19_multianno.vcf"; \
+    if [ -f "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.hg19_multianno.vcf" ]; then \
+      rm "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.hg19_multianno.vcf"; \
     fi 
-    if [ -f "${OutDir}${IdSample}/${IdSample}.sorted.vcf" ]; then \
-      rm "${OutDir}${IdSample}/${IdSample}.sorted.vcf"; \
+    if [ -f "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.sorted.vcf" ]; then \
+      rm "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.sorted.vcf"; \
     fi
     if [ -f "${OutDir}${IdSample}/${IdSample}.sorted.vcf.idx" ]; then \
-      rm "${OutDir}${IdSample}/${IdSample}.sorted.vcf.idx"; \
+      rm "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.sorted.vcf.idx"; \
     fi
   }
   output {

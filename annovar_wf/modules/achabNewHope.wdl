@@ -11,6 +11,8 @@ task captainAchabNewHope {
   File OutMpa
   File OutPhenolyzer
   Float AllelicFrequency
+  String SrunLow
+  String WorkflowType
   String CheckTrio
   String CustomInfo
   String IdSample
@@ -19,9 +21,9 @@ task captainAchabNewHope {
 
 
   command {
-    ${PerlPath} ${AchabExe} \
+    ${SrunLow} ${PerlPath} ${AchabExe} \
     --vcf ${OutMpa} \
-    --outDir ${OutDir}${IdSample}/achab_excel/ \
+    --outDir ${OutDir}${IdSample}/${WorkflowType}/achab_excel/ \
     --case ${CaseSample} \
     --dad ${FatherSample} \
     --mum ${MotherSample} \
@@ -34,6 +36,6 @@ task captainAchabNewHope {
 
   }
   output {
-    File outAchab = "${OutDir}${IdSample}/achab_excel/achab_catch_newHope.xlsx"
+    File outAchab = "${OutDir}${IdSample}/${WorkflowType}/achab_excel/achab_catch_newHope.xlsx"
   }
 }
