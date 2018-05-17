@@ -1,4 +1,4 @@
-task captainAchabNewHope {
+task achabNewHope {
 
   #Trio = dad/mum/case mais si control, trio ne marche pas
 
