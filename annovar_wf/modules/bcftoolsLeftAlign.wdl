@@ -5,13 +5,13 @@ task bcftoolsLeftAlign {
   String SrunLow 
   String WorkflowType
   String OutDir 
-  String IdSample 
+  String SampleID 
 
   command {
     ${SrunLow} ${BcftoolsExe} norm -f ${FastaGenome} \
-    -o ${OutDir}${IdSample}/${WorkflowType}/bcftools/${IdSample}_leftalign.vcf ${SplittedVcf}
+    -o ${OutDir}${SampleID}/${WorkflowType}/bcftools/${SampleID}_leftalign.vcf ${SplittedVcf}
   }
   output {
-    File outBcfLeftAlign = "${OutDir}${IdSample}/${WorkflowType}/bcftools/${IdSample}_leftalign.vcf"
+    File outBcfLeftAlign = "${OutDir}${SampleID}/${WorkflowType}/bcftools/${SampleID}_leftalign.vcf"
   }
 }

@@ -1,17 +1,19 @@
 task gatkSortVcf {
-  String SrunLow
-  String WorkflowType
-	String IdSample	
+	#global variables
+	String SrunLow
+	String SampleID	
 	String OutDir
-	File GatkExe
+	String WorkflowType
+	String GatkExe
+	#task specific variables
 	File UnsortedVcf
 	command {
-		 ${SrunLow} ${GatkExe} SortVcf \
+		${SrunLow} ${GatkExe} SortVcf \
 		-I ${UnsortedVcf} \
-		-O "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.sorted.vcf"
+		-O "${OutDir}${SampleID}/${WorkflowType}/${SampleID}.sorted.vcf"
 	}
 	output {
-		File sortedVcf = "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.sorted.vcf"
-		File sortedVcfIndex = "${OutDir}${IdSample}/${WorkflowType}/${IdSample}.sorted.vcf.idx"
+		File sortedVcf = "${OutDir}${SampleID}/${WorkflowType}/${SampleID}.sorted.vcf"
+		File sortedVcfIndex = "${OutDir}${SampleID}/${WorkflowType}/${SampleID}.sorted.vcf.idx"
 	}
 }

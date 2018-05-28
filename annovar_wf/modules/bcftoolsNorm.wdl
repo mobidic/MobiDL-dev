@@ -1,15 +1,18 @@
 task bcftoolsNorm {
-  String SrunLow
-  String WorkflowType
-	String IdSample	
+	#global variables
+	String SrunLow
+	String SampleID	
 	String OutDir
-	File BcftoolsExe
-	File AlignVcf
+	String WorkflowType
+	String BcfToolsExe
+	#task specific variables
+	File SortedVcf
 	command {
-		${SrunLow} ${BcftoolsExe} norm -O v -m - \
-		-o ${OutDir}${IdSample}/${WorkflowType}/bcftools/${IdSample}_normalize.vcf ${AlignVcf}
+		${SrunLow} ${BcfToolsExe} norm -O v -m - \
+		-o "${OutDir}${SampleID}/${WorkflowType}/${SampleID}.vcf" \
+		${SortedVcf}
 	}
 	output {
-		File outBcfNorm = "${OutDir}${IdSample}/${WorkflowType}/bcftools/${IdSample}_normalize.vcf"
+		File normVcf = "${OutDir}${SampleID}/${WorkflowType}/${SampleID}.vcf"
 	}
 }

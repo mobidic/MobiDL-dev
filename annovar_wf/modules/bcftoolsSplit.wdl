@@ -4,16 +4,16 @@ task bcftoolsSplit {
   Boolean IsPrepared
   File InputVcf
 	File BcftoolsExe
-  String IdSample 
+  String SampleID 
   String OutDir
   
 
 	command {
     ${SrunLow} ${BcftoolsExe} norm -m-both \
-    -o ${OutDir}${IdSample}/${WorkflowType}/bcftools/${IdSample}_splitted.vcf ${InputVcf} 
+    -o ${OutDir}${SampleID}/${WorkflowType}/bcftools/${SampleID}_splitted.vcf ${InputVcf} 
 	}	
   output {
-    File outBcfSplit = "${OutDir}${IdSample}/${WorkflowType}/bcftools/${IdSample}_splitted.vcf"
+    File outBcfSplit = "${OutDir}${SampleID}/${WorkflowType}/bcftools/${SampleID}_splitted.vcf"
   }
 
 }

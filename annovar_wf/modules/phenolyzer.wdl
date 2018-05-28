@@ -10,7 +10,7 @@ task phenolyzer {
   File DiseaseFile
   String SrunLow
   String WorkflowType
-  String IdSample
+  String SampleID
   String OutDir
   String PerlPath
 
@@ -18,11 +18,11 @@ task phenolyzer {
     cp ${DiseaseFile} ${PhenolyzerExe}/disease_files
     chmod +xwr ${PhenolyzerExe}/disease_files/disease.txt
     cd ${PhenolyzerExe}
-    ${SrunLow} ${PerlPath} disease_annotation.pl disease_files/disease.txt -f -p -ph -logistic -out out/disease/${IdSample}
-    mv ${PhenolyzerExe}/out/disease/${IdSample}.predicted_gene_scores ${OutDir}${IdSample}/${WorkflowType}/disease/
+    ${SrunLow} ${PerlPath} disease_annotation.pl disease_files/disease.txt -f -p -ph -logistic -out out/disease/${SampleID}
+    mv ${PhenolyzerExe}/out/disease/${SampleID}.predicted_gene_scores ${OutDir}${SampleID}/${WorkflowType}/disease/
   >>>
 
   output {
-    File outPhenolyzer = "${OutDir}${IdSample}/${WorkflowType}/disease/${IdSample}.predicted_gene_scores"
+    File outPhenolyzer = "${OutDir}${SampleID}/${WorkflowType}/disease/${SampleID}.predicted_gene_scores"
   }
 }

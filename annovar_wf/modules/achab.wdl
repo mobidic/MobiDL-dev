@@ -15,7 +15,7 @@ task achab {
   String WorkflowType
   String CheckTrio
   String CustomInfo
-  String IdSample
+  String SampleID
   String OutDir
   String PerlPath
 
@@ -23,7 +23,7 @@ task achab {
   command {
     ${SrunLow} ${PerlPath} ${AchabExe} \
     --vcf ${OutMpa} \
-    --outDir ${OutDir}${IdSample}/${WorkflowType}/achab_excel/ \
+    --outDir ${OutDir}${SampleID}/${WorkflowType}/achab_excel/ \
     --case ${CaseSample} \
     --dad ${FatherSample} \
     --mum ${MotherSample} \
@@ -34,6 +34,6 @@ task achab {
     --customInfo ${CustomInfo} \
   }
   output {
-    File outAchab = "${OutDir}${IdSample}/${WorkflowType}/achab_excel/achab_catch.xlsx"
+    File outAchab = "${OutDir}${SampleID}/${WorkflowType}/achab_excel/achab_catch.xlsx"
   }
 }
