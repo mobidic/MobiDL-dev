@@ -4,12 +4,12 @@ task dirPreparation {
   String OutDir
   String PhenolyzerExe
   File InputVcf
+#if [ ! -d "${OutDir}" ]; \
+#    then \
+#      mkdir "${OutDir}"; \
+#    fi
 
   command {
-    if [ ! -d "${OutDir}" ]; \
-    then \
-      mkdir "${OutDir}"; \
-    fi
     if [ ! -d "${OutDir}${SampleID}" ]; \
     then \
       mkdir "${OutDir}${SampleID}"; \
