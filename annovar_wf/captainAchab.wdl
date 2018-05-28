@@ -27,7 +27,7 @@ workflow captainAchab {
   ## Global
   String srunLow
   String workflowType
-  String idSample
+  String sampleID
   String outDir
   Boolean keepFiles
   ## From annovarForMpa
@@ -63,7 +63,7 @@ workflow captainAchab {
     IsPrepared = dirPreparation.isPrepared, 
     InputVcf = inputVcf, 
     BcftoolsExe = bcftoolsExe, 
-    IdSample = idSample, 
+    SampleID = sampleID, 
     OutDir = outDir
   }
 
@@ -75,33 +75,33 @@ workflow captainAchab {
     FastaGenome = fastaGenome, 
     SplittedVcf = bcftoolsSplit.outBcfSplit, 
     OutDir = outDir, 
-    IdSample = idSample
+    SampleID = sampleID
   }
 
   call runBcftoolsNorm.bcftoolsNorm {
     input: 
     SrunLow = srunLow, 
     WorkflowType = workflowType, 
-    IdSample = idSample, 
+    SampleID = sampleID, 
     OutDir = outDir, 
-    BcftoolsExe = bcftoolsExe, 
-    AlignVcf = bcftoolsLeftAlign.outBcfLeftAlign
+    BcfToolsExe = bcftoolsExe, 
+    SortedVcf = bcftoolsLeftAlign.outBcfLeftAlign
   }
 
   call runGatkSortVcf.gatkSortVcf {
     input:
     SrunLow = srunLow, 
     WorkflowType = workflowType, 
-    IdSample = idSample, 
+    SampleID = sampleID, 
     OutDir = outDir, 
     GatkExe = gatkExe, 
-    UnsortedVcf = bcftoolsNorm.outBcfNorm
+    UnsortedVcf = bcftoolsNorm.normVcf
   }
 
   call runDirPreparation.dirPreparation{
     input:
     WorkflowType = workflowType,
-    IdSample = idSample,
+    SampleID = sampleID,
     OutDir = outDir,
     PhenolyzerExe = phenolyzerExe,
     InputVcf = inputVcf
@@ -112,7 +112,7 @@ workflow captainAchab {
     call runDirRemove.dirRemove{
       input:
       WorkflowType = workflowType,
-      IdSample = idSample,
+      SampleID = sampleID,
       OutDir = outDir,
       PhenolyzerExe = phenolyzerExe,
       OutPhenolyzer = phenolyzer.outPhenolyzer,
@@ -126,7 +126,7 @@ workflow captainAchab {
     SrunLow = srunLow, 
     WorkflowType = workflowType, 
     CustomXref = customXref,
-    InputVcf = gatkSortVcf.sortedVcf,
+    SortedVcf = gatkSortVcf.sortedVcf,
     RefAnnotateVariation = refAnnotateVariation,
     RefCodingChange = refCodingChange,
     RefConvert2Annovar = refConvert2Annovar,
@@ -134,7 +134,7 @@ workflow captainAchab {
     RefVariantsReduction = refVariantsReduction,
     TableAnnovarExe = tableAnnovarExe,
     HumanDb = humanDb,
-    IdSample = idSample,
+    SampleID = sampleID,
     OutDir = outDir,
     PerlPath = perlPath
   }
@@ -145,7 +145,7 @@ workflow captainAchab {
     WorkflowType = workflowType, 
     MpaExe = mpaExe,
     OutAnnotation = annovarForMpa.outAnnotationVcf,
-    IdSample = idSample,
+    SampleID = sampleID,
     OutDir = outDir,
     PythonPath = pythonPath
   }
@@ -157,7 +157,7 @@ workflow captainAchab {
     IsPrepared = dirPreparation.isPrepared,
     DiseaseFile = diseaseFile,
     PhenolyzerExe = phenolyzerExe,
-    IdSample = idSample,
+    SampleID = sampleID,
     OutDir = outDir,
     PerlPath = perlPath
   }
@@ -175,7 +175,7 @@ workflow captainAchab {
     AllelicFrequency = allelicFrequency,
     CheckTrio = checkTrio,
     CustomInfo = customInfo,
-    IdSample = idSample,
+    SampleID = sampleID,
     OutDir = outDir,
     PerlPath = perlPath
    }
@@ -194,7 +194,7 @@ workflow captainAchab {
      AllelicFrequency = allelicFrequency,
      CheckTrio = checkTrio,
      CustomInfo = customInfo,
-     IdSample = idSample,
+     SampleID = sampleID,
      OutDir = outDir,
      PerlPath = perlPath
   }
