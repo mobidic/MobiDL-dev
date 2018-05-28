@@ -4,26 +4,26 @@ task dirPreparation {
   String OutDir
   String PhenolyzerExe
   File InputVcf
-#if [ ! -d "${OutDir}" ]; \
+#if [ ! -d "output/" ]; \
 #    then \
-#      mkdir "${OutDir}"; \
+#      mkdir "output/"; \
 #    fi
 
   command {
-    if [ ! -d "${OutDir}${SampleID}" ]; \
+    if [ ! -d "output/${SampleID}" ]; \
     then \
-      mkdir "${OutDir}${SampleID}"; \
+      mkdir "output/${SampleID}"; \
     fi
-    if [ ! -d "${OutDir}${SampleID}/${WorkflowType}" ]; then \
-      mkdir "${OutDir}${SampleID}/${WorkflowType}";
+    if [ ! -d "output/${SampleID}/${WorkflowType}" ]; then \
+      mkdir "output/${SampleID}/${WorkflowType}";
     fi 
-    if [ ! -d "${OutDir}${SampleID}/${WorkflowType}/disease" ]; \
+    if [ ! -d "output/${SampleID}/${WorkflowType}/disease" ]; \
     then \
-      mkdir "${OutDir}${SampleID}/${WorkflowType}/disease"; \
+      mkdir "output/${SampleID}/${WorkflowType}/disease"; \
     fi
-    if [ ! -d "${OutDir}${SampleID}/${WorkflowType}/achab_excel" ]; \
+    if [ ! -d "output/${SampleID}/${WorkflowType}/achab_excel" ]; \
     then \
-      mkdir "${OutDir}${SampleID}/${WorkflowType}/achab_excel"; \
+      mkdir "output/${SampleID}/${WorkflowType}/achab_excel"; \
     fi
     if [ ! -d "${PhenolyzerExe}/out" ]; then \
       mkdir "${PhenolyzerExe}/out"; \
@@ -34,10 +34,10 @@ task dirPreparation {
     if [ ! -d "${PhenolyzerExe}/disease_files" ]; then \
       mkdir "${PhenolyzerExe}/disease_files"; \
     fi
-    if [ ! -d "${OutDir}${SampleID}/${WorkflowType}/bcftools" ]; then \
-      mkdir "${OutDir}${SampleID}/${WorkflowType}/bcftools"; \
+    if [ ! -d "output/${SampleID}/${WorkflowType}/bcftools" ]; then \
+      mkdir "output/${SampleID}/${WorkflowType}/bcftools"; \
     fi
-    cp ${InputVcf} ${OutDir}${SampleID}/${WorkflowType}
+    cp ${InputVcf} output/${SampleID}/${WorkflowType}
 
   }
   output {
